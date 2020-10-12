@@ -53,8 +53,10 @@ const DateCell = styled.div`
 
 const DateLabel = styled(Subtitle)`
   height: 30px;
+  color: ${props => (props.labelColor)};
   @media (max-width: 699px) {
     font-size: 12px;
+    
   }
 `
 
@@ -303,7 +305,7 @@ export default class ScheduleSelector extends React.Component<PropsType, StateTy
   }
 
   renderTimeLabels = (): React.Element<*> => {
-    const labels = [<DateLabel key={-1} />] // Ensures time labels start at correct location
+    const labels = [<DateLabel labelColor={this.props.labelColor} key={-1} />] // Ensures time labels start at correct location
     this.dates[0].forEach(time => {
       labels.push(
         <TimeLabelCell key={time.toString()}>
@@ -317,7 +319,7 @@ export default class ScheduleSelector extends React.Component<PropsType, StateTy
   renderDateColumn = (dayOfTimes: Array<Date>) => (
     <Column key={dayOfTimes[0].toString()} margin={this.props.margin}>
       <GridCell margin={this.props.margin}>
-        <DateLabel>{formatDate(dayOfTimes[0], this.props.dateFormat)}</DateLabel>
+        <DateLabel labelColor={this.props.labelColor}>{formatDate(dayOfTimes[0], this.props.dateFormat)}</DateLabel>
       </GridCell>
       {dayOfTimes.map(time => this.renderDateCellWrapper(time))}
     </Column>
